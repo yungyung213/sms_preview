@@ -1,19 +1,4 @@
-# 모바일 문자 미리보기
+모바일 문자 미리보기 v7
 
-GitHub Pages 업로드용 파일입니다.
-
-## 업로드 파일
-
-- index.html
-- style.css
-- script.js
-
-## 권장 경로
-
-`kakao_preview/sms-preview/` 폴더 안에 업로드하면 아래 주소로 접근할 수 있습니다.
-
-`https://yungyung213.github.io/kakao_preview/sms-preview/`
-
-## 메모
-
-기존 Apps Script의 `Code.gs`는 GitHub Pages에서는 사용하지 않습니다.
+Toolbox가 작동하지 않는 문제를 재검토하여, Toolbox 이벤트를 index.html 인라인 스크립트로 직접 연결했습니다. 외부 script.js의 충돌 가능성도 제거했습니다.
+업로드 파일: index.html, style.css, script.js

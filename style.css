@@ -670,3 +670,919 @@ textarea {
     margin-right: auto;
   }
 }
+
+
+/* v2 Toolbox collapsed menu */
+.side-toolbar {
+  display: none !important;
+}
+
+.toolbox {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.toolbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toolbox.open .toolbox-list {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.toolbox-item {
+  width: 176px;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #dbe4ef;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.toolbox-item:hover {
+  transform: translateX(-3px);
+  border-color: #111827;
+  color: #111827;
+}
+
+.toolbox-item.active {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+  font-weight: 500;
+}
+
+.toolbox-item.active:hover {
+  color: #fff;
+}
+
+.toolbox-icon {
+  width: 24px;
+  text-align: center;
+  font-size: 18px;
+  flex: 0 0 auto;
+}
+
+.toolbox-toggle {
+  height: 48px;
+  min-width: 136px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.toolbox-toggle:hover {
+  transform: translateY(-2px);
+  background: #020617;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.28);
+}
+
+.toolbox.open .toolbox-toggle {
+  background: #111827;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
+}
+
+.toolbox-toggle-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .toolbox {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .toolbox-item {
+    width: 158px;
+    min-height: 44px;
+    font-size: 12px;
+  }
+
+  .toolbox-toggle {
+    height: 44px;
+    min-width: 120px;
+    font-size: 13px;
+  }
+}
+
+
+/* v3 layout redesign */
+
+/* 전체 배경 제거 및 깔끔한 작업 화면 */
+body {
+  background: #eef3f9 !important;
+  align-items: flex-start !important;
+  padding: 28px 0 !important;
+}
+
+/* 전체 컨테이너 카드 제거 */
+.container {
+  width: min(1360px, calc(100% - 56px)) !important;
+  max-width: 1360px !important;
+  height: auto !important;
+  min-height: calc(100vh - 56px) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  margin: 0 auto !important;
+  gap: 28px !important;
+  align-items: flex-start !important;
+}
+
+/* 미리보기는 왼쪽, 배경 제거 */
+.preview-panel {
+  order: 1 !important;
+  flex: 1.35 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 28px !important;
+  overflow: visible !important;
+}
+
+/* 입력창은 오른쪽, 흰색 카드 처리 */
+.input-panel {
+  order: 2 !important;
+  flex: 0 0 430px !important;
+  max-width: 430px !important;
+  background: #fff !important;
+  border-right: 0 !important;
+  border: 1px solid #dbe4ef !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+  padding: 28px !important;
+  max-height: calc(100vh - 56px) !important;
+  overflow-y: auto !important;
+}
+
+/* 삭제된 투명 문자 도구 관련 영역은 혹시 남아도 숨김 */
+.invisible-tool {
+  display: none !important;
+}
+
+.input-panel h2 {
+  font-size: 22px !important;
+  letter-spacing: -0.5px !important;
+}
+
+.notice-text {
+  margin-bottom: 22px !important;
+}
+
+.device-wrapper {
+  gap: 12px !important;
+}
+
+.device-label {
+  background: #fff !important;
+  border: 1px solid #dbe4ef !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* 입력창 너비에 맞춰 내부 요소 정리 */
+.var-row {
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+textarea {
+  min-height: 260px !important;
+}
+
+/* v3 Toolbox collapsed menu */
+.side-toolbar {
+  display: none !important;
+}
+
+.toolbox {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.toolbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toolbox.open .toolbox-list {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.toolbox-item {
+  width: 176px;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #dbe4ef;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.toolbox-item:hover {
+  transform: translateX(-3px);
+  border-color: #111827;
+  color: #111827;
+}
+
+.toolbox-item.active {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+  font-weight: 500;
+}
+
+.toolbox-item.active:hover {
+  color: #fff;
+}
+
+.toolbox-icon {
+  width: 24px;
+  text-align: center;
+  font-size: 18px;
+  flex: 0 0 auto;
+}
+
+.toolbox-toggle {
+  height: 48px;
+  min-width: 136px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.toolbox-toggle:hover {
+  transform: translateY(-2px);
+  background: #020617;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.28);
+}
+
+.toolbox.open .toolbox-toggle {
+  background: #111827;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
+}
+
+.toolbox-toggle-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (max-width: 1180px) {
+  body {
+    padding: 16px 0 !important;
+  }
+
+  .container {
+    width: calc(100% - 28px) !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  .preview-panel {
+    order: 1 !important;
+    width: 100% !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
+
+  .input-panel {
+    order: 2 !important;
+    flex: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .preview-panel {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .phone-frame {
+    width: 300px !important;
+    height: 600px !important;
+  }
+
+  .toolbox {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .toolbox-item {
+    width: 158px;
+    min-height: 44px;
+    font-size: 12px;
+  }
+
+  .toolbox-toggle {
+    height: 44px;
+    min-width: 120px;
+    font-size: 13px;
+  }
+}
+
+
+/* v4 Kakao-like layout */
+body {
+  background: #eef3f9 !important;
+  display: block !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+}
+
+.page-header {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 28px 0 20px;
+  text-align: center;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  color: #0f172a;
+}
+
+.page-header p {
+  margin: 9px 0 4px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.page-header span {
+  color: #d93025;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.container {
+  width: min(1280px, calc(100% - 48px)) !important;
+  max-width: 1280px !important;
+  min-height: auto !important;
+  height: auto !important;
+  margin: 0 auto 40px !important;
+  display: grid !important;
+  grid-template-columns: minmax(660px, 1fr) 420px !important;
+  gap: 18px !important;
+  align-items: start !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+.preview-panel {
+  order: 1 !important;
+  width: 100% !important;
+  background: #c9d5e2 !important;
+  border-radius: 18px !important;
+  padding: 28px 22px !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 22px !important;
+  overflow: visible !important;
+  min-height: 720px !important;
+}
+
+.input-panel {
+  order: 2 !important;
+  width: 420px !important;
+  max-width: 420px !important;
+  flex: none !important;
+  background: #fff !important;
+  border: 1px solid #dbe4ef !important;
+  border-radius: 18px !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,.08) !important;
+  padding: 22px !important;
+  max-height: calc(100vh - 112px) !important;
+  overflow-y: auto !important;
+}
+
+.settings-section {
+  margin-bottom: 18px !important;
+  padding-bottom: 18px !important;
+}
+
+.input-label {
+  font-size: 13px !important;
+}
+
+.var-row {
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+textarea {
+  min-height: 250px !important;
+}
+
+.device-label {
+  background: #fff !important;
+  border: 1px solid #dbe4ef !important;
+  box-shadow: 0 4px 12px rgba(15,23,42,.06) !important;
+}
+
+.phone-frame {
+  width: 300px !important;
+  height: 600px !important;
+}
+
+/* Toolbox robust display */
+.toolbox {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 10px !important;
+}
+
+.toolbox-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  opacity: 0 !important;
+  transform: translateY(10px) scale(.98) !important;
+  pointer-events: none !important;
+  transition: opacity .2s ease, transform .2s ease !important;
+}
+
+.toolbox.open .toolbox-list {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  pointer-events: auto !important;
+}
+
+.toolbox-item {
+  width: 176px !important;
+  min-height: 46px !important;
+  padding: 0 14px !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,.96) !important;
+  border: 1px solid #dbe4ef !important;
+  box-shadow: 0 10px 24px rgba(15,23,42,.12) !important;
+  color: #475569 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.toolbox-item.active {
+  background: #111827 !important;
+  color: #fff !important;
+  border-color: #111827 !important;
+}
+
+.toolbox-icon {
+  width: 24px !important;
+  text-align: center !important;
+  font-size: 18px !important;
+}
+
+.toolbox-toggle {
+  height: 48px !important;
+  min-width: 136px !important;
+  padding: 0 18px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #111827 !important;
+  color: #fff !important;
+  box-shadow: 0 12px 28px rgba(15,23,42,.24) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+@media (max-width: 1120px) {
+  .container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .preview-panel {
+    flex-wrap: wrap !important;
+    min-height: auto !important;
+  }
+
+  .input-panel {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    width: calc(100% - 28px);
+    padding-top: 22px;
+  }
+
+  .container {
+    width: calc(100% - 28px) !important;
+  }
+
+  .preview-panel {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .toolbox {
+    right: 14px !important;
+    bottom: 14px !important;
+  }
+}
+
+
+/* v5 requested fixes */
+
+/* 2. 상단 타이틀 위 여백 추가 */
+.page-header {
+  padding-top: 48px !important;
+  padding-bottom: 24px !important;
+}
+
+/* 1. 미리보기 배경 삭제 */
+.preview-panel {
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 22px 0 0 !important;
+  min-height: auto !important;
+}
+
+/* 각 운영체제 라벨 위쪽 여백 증가 */
+.device-wrapper {
+  padding-top: 22px !important;
+}
+
+/* 운영체제 라벨과 기기 사이 간격도 조금 여유 */
+.device-label {
+  margin-bottom: 8px !important;
+}
+
+/* 입력창과 미리보기 정렬 유지 */
+.container {
+  align-items: flex-start !important;
+}
+
+/* 3. Toolbox 동작/표시 강제 보정 */
+.toolbox {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 10px !important;
+  pointer-events: auto !important;
+}
+
+.toolbox-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  opacity: 0 !important;
+  transform: translateY(10px) scale(.98) !important;
+  pointer-events: none !important;
+  transition: opacity .2s ease, transform .2s ease !important;
+}
+
+.toolbox.open .toolbox-list {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  pointer-events: auto !important;
+}
+
+.toolbox-item {
+  width: 176px !important;
+  min-height: 46px !important;
+  padding: 0 14px !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,.98) !important;
+  border: 1px solid #dbe4ef !important;
+  box-shadow: 0 10px 24px rgba(15,23,42,.12) !important;
+  color: #475569 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.toolbox-item.active {
+  background: #111827 !important;
+  color: #fff !important;
+  border-color: #111827 !important;
+}
+
+.toolbox-icon {
+  width: 24px !important;
+  text-align: center !important;
+  font-size: 18px !important;
+}
+
+.toolbox-toggle {
+  height: 48px !important;
+  min-width: 136px !important;
+  padding: 0 18px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #111827 !important;
+  color: #fff !important;
+  box-shadow: 0 12px 28px rgba(15,23,42,.24) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+.toolbox-toggle:hover {
+  background: #020617 !important;
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    padding-top: 34px !important;
+  }
+
+  .device-wrapper {
+    padding-top: 12px !important;
+  }
+
+  .toolbox {
+    right: 14px !important;
+    bottom: 14px !important;
+  }
+}
+
+
+/* v6 typography and input-size refinements */
+
+/* 1. 운영체제 라벨: 글자 크기 축소, 볼드 해제, 배경 제거 */
+.device-label {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #475569 !important;
+}
+
+/* 2. 미리보기 말풍선 폰트 크기 소폭 축소 */
+.msg-bubble-base {
+  font-size: 14px !important;
+  line-height: 1.42 !important;
+}
+
+.msg-subject {
+  font-size: 1em !important;
+}
+
+.android-footer-btn {
+  font-size: 13px !important;
+}
+
+/* 3. 오른쪽 입력창 문자내용란 높이 확대 */
+textarea#messageInput {
+  min-height: 340px !important;
+  height: 340px !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  padding: 16px !important;
+}
+
+/* 입력창 전반 폰트도 살짝 축소 */
+.styled-input,
+.var-input {
+  font-size: 13px !important;
+}
+
+.input-label {
+  font-size: 12.5px !important;
+}
+
+.char-count,
+.byte-counter {
+  font-size: 12px !important;
+}
+
+/* 오른쪽 입력 카드 내부 간격 약간 조정 */
+.input-panel {
+  padding: 24px !important;
+}
+
+.write-section {
+  min-height: 420px !important;
+}
+
+
+/* v7 Toolbox hard fix */
+.side-toolbar {
+  display: none !important;
+}
+
+.toolbox {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 10px !important;
+  pointer-events: auto !important;
+}
+
+.toolbox-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(10px) scale(.98) !important;
+  pointer-events: none !important;
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease !important;
+}
+
+.toolbox.open .toolbox-list {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
+  pointer-events: auto !important;
+}
+
+.toolbox-item {
+  width: 176px !important;
+  min-height: 46px !important;
+  padding: 0 14px !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,.98) !important;
+  border: 1px solid #dbe4ef !important;
+  box-shadow: 0 10px 24px rgba(15,23,42,.14) !important;
+  color: #475569 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+.toolbox-item:hover {
+  border-color: #111827 !important;
+  color: #111827 !important;
+}
+
+.toolbox-item.active {
+  background: #111827 !important;
+  color: #fff !important;
+  border-color: #111827 !important;
+}
+
+.toolbox-item.active:hover {
+  color: #fff !important;
+}
+
+.toolbox-icon {
+  width: 24px !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  flex: 0 0 auto !important;
+}
+
+.toolbox-toggle {
+  height: 48px !important;
+  min-width: 136px !important;
+  padding: 0 18px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #111827 !important;
+  color: #fff !important;
+  box-shadow: 0 12px 28px rgba(15,23,42,.26) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  user-select: none !important;
+}
+
+.toolbox-toggle:hover {
+  background: #020617 !important;
+}
+
+@media (max-width: 720px) {
+  .toolbox {
+    right: 14px !important;
+    bottom: 14px !important;
+  }
+
+  .toolbox-item {
+    width: 158px !important;
+    min-height: 44px !important;
+    font-size: 12px !important;
+  }
+
+  .toolbox-toggle {
+    height: 44px !important;
+    min-width: 120px !important;
+    font-size: 13px !important;
+  }
+}

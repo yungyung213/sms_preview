@@ -160,3 +160,7 @@ copyInvisibleBtn.addEventListener("click", copyInvisible);
 
 updateReceiverName();
 updateMessagePreview();
+
+
+
+
