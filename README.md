@@ -1,4 +1,5 @@
-문자 미리보기 v9 Menu Name
+문자 미리보기 v10 Feedback
 
-Toolbox 하단 메뉴 명칭을 MMS 미리보기에서 문자 미리보기로 변경했습니다.
+v9 메뉴명 수정본 기준으로 Toolbox에 Tally 피드백 링크를 다시 추가했습니다.
+Tally URL: https://tally.so/r/q4oN9d
 업로드 파일: index.html, style.css, script.js
