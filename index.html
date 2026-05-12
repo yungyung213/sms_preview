@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모바일 문자 미리보기</title>
+  <base target="_self">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="input-panel">
+      <h2>문자 메세지 작성기</h2>
+      <p class="sub-title">입력한 내용이 오른쪽 화면에 실시간으로 표시됩니다.</p>
+      <p class="notice-text">⚠️ 저장되지 않으니 미리보기용으로만 참고해 주세요!</p>
+
+      <div class="settings-section">
+        <label class="input-label">수신자 이름 (상단 표시)</label>
+        <input type="text" id="receiverInput" class="styled-input" placeholder="수신자명을 입력하세요 (예: 폴스타 코리아)">
+
+        <label class="input-label">치환 변수 설정 (본문에 {변수1} 입력 시 자동변환)</label>
+        <div class="var-row">
+          <input type="text" id="var1Input" class="var-input" placeholder="변수1 (예: 김철수)">
+          <input type="text" id="var2Input" class="var-input" placeholder="변수2 (예: 날짜)">
+          <input type="text" id="var3Input" class="var-input" placeholder="변수3 (예: 시간)">
+        </div>
+      </div>
+
+      <div class="write-section">
+        <div class="subject-header">
+          <label class="input-label">문자 제목</label>
+          <span class="byte-counter"><span id="subjectByte">0</span> / 40 byte</span>
+        </div>
+        <input type="text" id="subjectInput" class="styled-input" placeholder="제목을 입력하세요 (선택사항)">
+
+        <div class="content-header">
+          <label class="input-label">문자 내용</label>
+
+          <div class="danger-wrapper">
+            <label class="danger-label">
+              <input type="checkbox" id="dangerCheck">
+              ⚠️ 깨짐 확인
+            </label>
+            <div class="danger-tooltip">
+              <b>[❔왜 깨지나요?]</b><br>
+              구형 단말기나 일부 통신사(EUC-KR)는 투명 문자(U+3164)를 인식하지 못해 '?'나 '□'로 표시될 수 있어요.<br><br>
+              <b>[ 🔍확인 방법]</b><br>
+              체크박스를 켜면 투명 문자가 들어간 위치가 <span class="tooltip-highlight">빨간색(■)</span>으로 표시됩니다.
+            </div>
+          </div>
+        </div>
+
+        <textarea id="messageInput" placeholder="[작성 예시]&#13;&#10;안녕하세요 {변수1}님!&#13;&#10;예약하신 날짜는 {변수2}입니다."></textarea>
+
+        <div class="char-count">글자수: <span id="charCount">0</span>자</div>
+      </div>
+
+      <div class="invisible-tool">
+        <div class="tool-top">
+          <h3>✨ 투명 공백 문자 (U+3164)</h3>
+          <button class="copy-btn" id="copyInvisibleBtn" type="button">투명 문자 복사</button>
+        </div>
+        <p class="invisible-desc">
+          공백이 필요할 때 사용하세요! 다양한 옵션은 투명/깨짐 페이지에서!
+        </p>
+        <div class="unicode-info">
+          💡 유니코드(Unicode)라는 범용 라이브러리에 있는 실제 문자(U+3164)로, 화면에는 보이지 않도록 설계되었습니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-panel">
+      <div class="device-wrapper">
+        <div class="device-label">🍎 iPhone (iOS)</div>
+        <div class="phone-frame ios">
+          <div class="status-bar"><span>9:41</span><span>LTE</span></div>
+          <div class="ios-nav"><span>수신자: <span id="iosReceiverText">수신자</span></span></div>
+          <div class="screen">
+            <div class="screen-date">문자 메시지</div>
+            <div id="iosPreview" class="msg-bubble-base ios-bubble"></div>
+            <div id="iosTime" class="timestamp">오전 9:41</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="device-wrapper">
+        <div class="device-label">🛸 Android (Galaxy)</div>
+
+        <div class="phone-frame android">
+          <div class="status-bar"><span>09:41</span><span>100%</span></div>
+          <div class="android-nav"><span>← <span id="androidReceiverText">수신자</span></span></div>
+          <div class="screen">
+            <div class="screen-date android-date">오늘</div>
+            <div id="androidBubble" class="msg-bubble-base android-bubble">
+              <div id="androidContent" class="android-content"></div>
+              <button type="button" class="android-footer-btn" id="expandAndroidBtn">
+                <span>모두 보기</span>
+                <span>&gt;</span>
+              </button>
+            </div>
+            <div id="androidTime" class="timestamp">09:41</div>
+          </div>
+        </div>
+
+        <div class="bottom-toggle-wrapper">
+          <input type="checkbox" id="simulateToggle" class="switch-checkbox">
+          <label for="simulateToggle" class="switch-label">
+            <span>📏 긴 문자 접기 테스트</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="side-toolbar" aria-label="도구 메뉴">
+    <a href="https://yungyung213.github.io/kakao_preview/mms-compare/" class="tool-item">
+      <span class="tool-icon">⚖️</span>
+      <span class="tool-text">MMS<br>비교하기</span>
+    </a>
+
+    <a href="https://yungyung213.github.io/kakao_preview/sms-preview/" class="tool-item active">
+      <span class="tool-icon">📱</span>
+      <span class="tool-text">문자<br>미리보기</span>
+    </a>
+
+    <a href="https://yungyung213.github.io/kakao_preview/transparent-check/" class="tool-item">
+      <span class="tool-icon">📇</span>
+      <span class="tool-text">투명/깨짐<br>체크</span>
+    </a>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
