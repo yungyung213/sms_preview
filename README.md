@@ -1,5 +1,4 @@
-MMS 미리보기 v8 Feedback
+문자 미리보기 v9 Menu Name
 
-Toolbox에 Tally 피드백 링크를 추가했습니다.
-Tally URL: https://tally.so/r/q4oN9d
+Toolbox 하단 메뉴 명칭을 MMS 미리보기에서 문자 미리보기로 변경했습니다.
 업로드 파일: index.html, style.css, script.js
