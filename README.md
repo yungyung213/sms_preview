@@ -1,4 +1,5 @@
-모바일 문자 미리보기 v7
+MMS 미리보기 v8 Feedback
 
-Toolbox가 작동하지 않는 문제를 재검토하여, Toolbox 이벤트를 index.html 인라인 스크립트로 직접 연결했습니다. 외부 script.js의 충돌 가능성도 제거했습니다.
+Toolbox에 Tally 피드백 링크를 추가했습니다.
+Tally URL: https://tally.so/r/q4oN9d
 업로드 파일: index.html, style.css, script.js
